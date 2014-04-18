@@ -33,7 +33,6 @@ describe "StaticPages" do
     before{visit about_path}
     it "should have the content About Us" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      
       page.should have_selector("h1", text: 'About Us')
     end
     it "should have a title" do
@@ -41,4 +40,14 @@ describe "StaticPages" do
       page.should have_selector("title", text: 'About Page')
     end
   end
+describe "Contact Page" do
+  before {visit contact_path}
+  it "should have the content Contact Us" do
+    page.should have_selector("h1", text: 'Contact Us')
+end
+it "should have a title" do
+      page.should have_selector("title", text: 'Contact Page')
+     end
+  end   
+
 end
