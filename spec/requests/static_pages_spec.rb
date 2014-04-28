@@ -1,51 +1,43 @@
 require 'spec_helper'
 
 describe "StaticPages" do
+
+  subject{ page }
+
   describe "Home page" do
-    subject { page }
+    before {visit  root_path}
 
-  before {visit root_path}
-
-    it { should have_selector("h1", text: 'Third App')}
-    
-      it "should have a title" do
-      
-      page.should have_selector("title", text: 'Home Page')
-    end
+    it { should have_selector("h1", text: 'Third App') }
+    it { should have_selector("title", text: 'Home Page') }
   end
     describe "Help page" do
+    before{visit  help_path}
 
-    before {visit help_path}
-
-    it "should have the content Help Page" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      
-      page.should have_selector("h1", text: 'Help Page')
-    end
-    it "should have a title" do
-     
-      page.should have_selector("title", text: 'Help Page')
-    end
+    it { should have_selector("h1", text: 'Help Page') }
+    it { should have_selector("title", text: 'Help Page') }
   end
   describe "About Us page" do
-    before{visit about_path}
-    it "should have the content About Us" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      page.should have_selector("h1", text: 'About Us')
-    end
-    it "should have a title" do
-      
-      page.should have_selector("title", text: 'About Page')
-    end
-  end
-describe "Contact Page" do
-  before {visit contact_path}
-  it "should have the content Contact Us" do
-    page.should have_selector("h1", text: 'Contact Us')
-end
-it "should have a title" do
-      page.should have_selector("title", text: 'Contact Page')
-     end
-  end   
+    before{visit  help_path}
 
+    it { should have_selector("h1", text: 'About Us') }
+    it { should have_selector("title", text: 'About Us') }
+  end
+  describe "Contact page" do
+    before{visit  help_path}
+
+    it { should have_selector("h1", text: 'Contact Us') }
+    it { should have_selector("title", text: 'Contact Page') }
+  end
+  it "should have the correct links" do
+    visit root_path
+    click_link "About"
+    page_should have_selector 'title', text: 'About Us' 
+    click_link "Help"
+    page_should have_selector 'title', text: 'Help'
+    click_link "Contact"
+    page_should have_selector 'title', text: 'Contact' 
+    click_link "Home"
+    click_link "Sign up now!"
+    page_should have_selector 'title', text: 'Sign up'  
+  end
 end
